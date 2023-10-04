@@ -1,5 +1,12 @@
-import styles from '../styles/global.module.scss'
+import Head from 'next/head'
 
 export default function Page() {
-  return <h1 className={styles.title}>Hello, Next.js!</h1>;
+  return (
+    <>
+      <Head>
+        <title>marcnews</title>
+      </Head>
+      <h1>Hello, Next.js!</h1>
+    </>
+  );
 }
