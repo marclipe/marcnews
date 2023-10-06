@@ -1,8 +1,18 @@
 import Head from 'next/head'
 import { PiHandsClapping } from 'react-icons/pi'
 import styles from './home.module.scss'
+import { SubscribeButton } from '@/components/SubscribeButton/SubscribeButton';
+import { GetServerSideProps } from 'next';
+import { stripe } from '@/services/stripe';
 
-export default function Page() {
+interface HomeProps {
+  product: {
+    priceId: string;
+    amount: number;
+  }
+}
+
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -19,11 +29,34 @@ export default function Page() {
           </h1>
           <p>
             Get access to all publications <br />
-            <span>for $9.90 month</span>
+            <span>for { product.amount } month</span>
           </p>
+          <SubscribeButton/>
         </section>
+        
         <img src="/images/avatar.svg" alt="Pair programming" />
       </main>
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // API ID
+  const price = await stripe.prices.retrieve("price_1NxvM6GLFm4pxeK9VWhgVyED", {
+    expand: ['product']
+  })
+
+  const product = {
+    priceId: price.id,
+    amount: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(Number(price.unit_amount) / 100),
+  };
+
+  return {
+    props: {
+      product
+    }
+  }
 }
