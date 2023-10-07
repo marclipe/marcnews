@@ -21,3 +21,9 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ### React Icons
 `npm install react-icons --save`
+
+
+### Three ways to make an API call in React
+- Client-side Rendering 
+- Server-side Rendering
+- Static Site Generation
