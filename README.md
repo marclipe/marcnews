@@ -27,3 +27,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 - Client-side Rendering 
 - Server-side Rendering
 - Static Site Generation
+
+### NextAuth
+`npm install next-auth`
+
+pages/api/auth/[...nextauth].js
+
+(NextAuth)[https://next-auth.js.org/]
